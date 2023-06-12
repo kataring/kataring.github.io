@@ -13,9 +13,12 @@
 <body>
   <!-- Make actions -->
 <button type="button" onclick="fully.openWifiSettings();">Wifi</button>
+<button type="button" onclick="alert(fully.getWifiSsid());">getWifiSsid</button>
 
 <!-- Show device info -->
 <button type="button" onclick="alert(fully.getMacAddress());">Mac address</button>
+<button type="button" onclick="alert(fully.getDeviceId());">Device ID</button>
+<button type="button" onclick="alert(fully.getDeviceName());">DeviceName</button>
 
 <!-- Play Text to Speech -->
 <button type="button" onclick="fully.textToSpeech('How do you do?','en_GB');">Say hello</button>
