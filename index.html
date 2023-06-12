@@ -1,1 +1,61 @@
-Hello World
+<html>
+<head>
+	<style>
+	.console-log-div {
+		border: 1px solid gray;
+		padding: 5px 10px;
+		border-radius: 5px;
+		width: 95% !important;
+		background-color: #efefef;
+	}
+	</style>
+</head>
+<body>
+  <!-- Make actions -->
+<button type="button" onclick="fully.openWifiSettings();">Wifi</button>
+
+<!-- Show device info -->
+<button type="button" onclick="alert(fully.getMacAddress());">Mac address</button>
+
+<!-- Play Text to Speech -->
+<button type="button" onclick="fully.textToSpeech('How do you do?','en_GB');">Say hello</button>
+
+<!-- Change Fully Kiosk settings -->
+<button type="button" onclick="fully.setStringSetting('screenBrightness','255');">Full brightness</button>
+<button type="button" onclick="fully.setBooleanSetting('motionDetection',true);">Enable MD</button>
+
+<!-- Listen for events -->
+<script>
+function myMotion() { alert("Motion"); }
+fully.bind('onMotion','myMotion();');
+</script>
+
+<!-- Listen for iBeacon -->
+<script>
+function onBeacon (id1,id2,id3,distance) {
+  alert("iBeacon found: "+id1+"/"+id2+"/"+id3+" in "+distance+" meter");
+}
+fully.bind('onIBeacon','onBeacon("$id1","$id2","$id3",$distance);');
+// You can also use $mac, $name, $type, $manufactorer as placeholders
+</script>
+
+<!-- Scan QR Code -->
+<button type="button" onclick="fully.scanQrCode('Prompt text','javascript:alert(\'$code\');');">Scan QR Code</button>
+
+<!-- Identify Fully Kiosk Browser -->
+<script>
+if (typeof FullyKiosk !== "undefined")
+  document.writeln("<h1>Fully Kiosk working</h1>");
+</script>
+
+<!-- Print on Bluetooth Printer -->
+<script>
+fully.bind('onBtConnectSuccess','alert(\'BT connected: $device\');
+fully.bind('onBtConnectFailure','alert(\'BT failed\');');
+fully.btOpenByUuid('0000110a-0000-1000-8000-00805f9b34fb');
+</script>
+<button type="button" onclick="alert(fully.btSendHexData('68656c6c6f0a'));">btSendHexData()</button>
+<button type="button" onclick="alert(fully.btSendStringData('Hello\n'));">btSendStringData()</button>
+<button type="button" onclick="alert(fully.btSendByteData(new Uint8Array([104, 101, 108, 108, 111, 10])));">btSendByteData()</button>
+</body>
+</html>
